@@ -137,7 +137,7 @@
           <div class="media-frame">
             <video id="official-trailer" controls playsinline preload="none" poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/257403911/3c8d5a8772326734e8b0051b19927fc831c411aa/movie_600x337.jpg?t=1787308459" aria-label="Trailer resmi Ragnarok: The New World"></video>
           </div>
-          <figcaption class="media-caption"><b>Cuplikan resmi dari Steam</b><span id="trailer-autoplay-status" aria-live="polite">Video akan diputar otomatis dengan suara saat terlihat. Jika diblokir, tekan putar.</span></figcaption>
+          <figcaption class="media-caption"><b>Cuplikan resmi dari Steam</b><span id="trailer-autoplay-status" aria-live="polite">Video akan diputar otomatis saat terlihat. Jika browser memblokir suara, tekan ikon speaker.</span></figcaption>
           <p class="trailer-error" id="trailer-error" role="status" hidden><span>Video tidak dapat dimuat.</span> <a class="steam-cta" data-cta-slot="trailer" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/">Tonton trailer di Steam</a></p>
         </figure>
       </div>
@@ -240,7 +240,7 @@
         'Hadapi MVP':'Take on MVPs','Tantang monster MVP dan buka kesempatan untuk menjadikannya mount.':'Challenge MVP monsters for a chance to make one your mount.',
         'Jelajahi bersama':'Explore together','Bangun kelompok, susun peran, dan hadapi tantangan sebagai tim.':'Build a party, choose your roles, and take on challenges as a team.',
         'Jual dan bertukar':'Trade and exchange','Gunakan fitur perdagangan untuk menawarkan barang dan mencari perlengkapan.':'Use the trading features to offer items and find gear.',
-        'Video akan diputar otomatis dengan suara saat terlihat. Jika diblokir, tekan putar.':'The video starts automatically with sound when visible. If blocked, press play.','Video dalam keadaan senyap. Tekan ikon speaker untuk menyalakan suara.':'The video is muted. Press the speaker icon to turn sound on.','Autoplay dengan suara diblokir browser. Tekan putar untuk mendengarkan.':'Your browser blocked autoplay with sound. Press play to listen.','Sedang diputar dengan suara.':'Playing with sound.','Video tidak dapat dimuat.':'The video could not be loaded.','Tonton trailer di Steam':'Watch the trailer on Steam',
+        'Video akan diputar otomatis saat terlihat. Jika browser memblokir suara, tekan ikon speaker.':'The video starts automatically when visible. If your browser blocks sound, press the speaker icon.','Video dalam keadaan senyap. Tekan ikon speaker untuk menyalakan suara.':'The video is muted. Press the speaker icon to turn sound on.','Autoplay diblokir. Tekan putar untuk memulai video.':'Autoplay was blocked. Press play to start the video.','Sedang diputar dengan suara.':'Playing with sound.','Video tidak dapat dimuat.':'The video could not be loaded.','Tonton trailer di Steam':'Watch the trailer on Steam',
         'Cuplikan resmi dari Steam':'Official Steam trailer','Putar dengan suara mati · Aktifkan suara kapan saja':'Starts muted · Turn sound on whenever you like',
         'Ketahui sebelum memasang':'Know before you install','Persiapkan PC-mu.':'Get your PC ready.','Unduhan dan permainan dilakukan melalui Steam di PC Windows. Pastikan perangkat dan koneksimu siap sebelum memulai.':'Download and play through Steam on a Windows PC. Check that your device and connection are ready before you begin.',
         'Free-to-Play dengan pembelian dalam game.':'Free-to-Play with in-game purchases.','Halaman Steam mencantumkan pembelian dalam aplikasi. Periksa detail dan sistem permainan di Steam agar kamu tahu apa yang akan dihadapi.':'Steam lists in-app purchases. Review the game details and systems on Steam so you know what to expect.',
@@ -339,10 +339,15 @@
       const attemptSoundAutoplay = () => {
         trailer.muted = false;
         trailer.volume = 1;
-        trailer.play().catch(() => {
-          trailerAutoplayStatus.textContent = lang === 'en'
-            ? 'Your browser blocked autoplay with sound. Press play to listen.'
-            : 'Autoplay dengan suara diblokir browser. Tekan putar untuk mendengarkan.';
+        trailer.play().catch(async () => {
+          trailer.muted = true;
+          try {
+            await trailer.play();
+          } catch {
+            trailerAutoplayStatus.textContent = lang === 'en'
+              ? 'Autoplay was blocked. Press play to start the video.'
+              : 'Autoplay diblokir. Tekan putar untuk memulai video.';
+          }
         });
       };
       const startStream = () => {
