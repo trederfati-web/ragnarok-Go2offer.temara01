@@ -135,9 +135,9 @@
         </div>
         <figure style="margin:0">
           <div class="media-frame">
-            <video id="official-trailer" autoplay controls playsinline preload="auto" poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/257403911/3c8d5a8772326734e8b0051b19927fc831c411aa/movie_600x337.jpg?t=1787308459" aria-label="Trailer resmi Ragnarok: The New World"></video>
+            <video id="official-trailer" controls playsinline preload="none" poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/257403911/3c8d5a8772326734e8b0051b19927fc831c411aa/movie_600x337.jpg?t=1787308459" aria-label="Trailer resmi Ragnarok: The New World"></video>
           </div>
-          <figcaption class="media-caption"><b>Cuplikan resmi dari Steam</b><span id="trailer-autoplay-status" aria-live="polite">Mencoba putar otomatis dengan suara. Jika diblokir, tekan putar.</span></figcaption>
+          <figcaption class="media-caption"><b>Cuplikan resmi dari Steam</b><span id="trailer-autoplay-status" aria-live="polite">Video akan diputar otomatis saat terlihat. Browser mungkin memulai tanpa suara.</span></figcaption>
           <p class="trailer-error" id="trailer-error" role="status" hidden><span>Video tidak dapat dimuat.</span> <a class="steam-cta" data-cta-slot="trailer" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/">Tonton trailer di Steam</a></p>
         </figure>
       </div>
@@ -240,7 +240,7 @@
         'Hadapi MVP':'Take on MVPs','Tantang monster MVP dan buka kesempatan untuk menjadikannya mount.':'Challenge MVP monsters for a chance to make one your mount.',
         'Jelajahi bersama':'Explore together','Bangun kelompok, susun peran, dan hadapi tantangan sebagai tim.':'Build a party, choose your roles, and take on challenges as a team.',
         'Jual dan bertukar':'Trade and exchange','Gunakan fitur perdagangan untuk menawarkan barang dan mencari perlengkapan.':'Use the trading features to offer items and find gear.',
-        'Mencoba putar otomatis dengan suara. Jika diblokir, tekan putar.':'Trying to autoplay with sound. If blocked, press play.','Putar otomatis diblokir browser. Tekan putar untuk memulai dengan suara.':'Autoplay was blocked by your browser. Press play to start with sound.','Sedang diputar dengan suara.':'Playing with sound.','Video tidak dapat dimuat.':'The video could not be loaded.','Tonton trailer di Steam':'Watch the trailer on Steam',
+        'Video akan diputar otomatis saat terlihat. Browser mungkin memulai tanpa suara.':'The video starts automatically when visible. Your browser may start it muted.','Video diputar tanpa suara karena browser memblokir autoplay bersuara. Tekan ikon speaker untuk menyalakan suara.':'Playing muted because your browser blocked autoplay with sound. Press the speaker icon to turn sound on.','Tekan putar untuk memulai video.':'Press play to start the video.','Sedang diputar dengan suara.':'Playing with sound.','Video tidak dapat dimuat.':'The video could not be loaded.','Tonton trailer di Steam':'Watch the trailer on Steam',
         'Cuplikan resmi dari Steam':'Official Steam trailer','Putar dengan suara mati · Aktifkan suara kapan saja':'Starts muted · Turn sound on whenever you like',
         'Ketahui sebelum memasang':'Know before you install','Persiapkan PC-mu.':'Get your PC ready.','Unduhan dan permainan dilakukan melalui Steam di PC Windows. Pastikan perangkat dan koneksimu siap sebelum memulai.':'Download and play through Steam on a Windows PC. Check that your device and connection are ready before you begin.',
         'Free-to-Play dengan pembelian dalam game.':'Free-to-Play with in-game purchases.','Halaman Steam mencantumkan pembelian dalam aplikasi. Periksa detail dan sistem permainan di Steam agar kamu tahu apa yang akan dihadapi.':'Steam lists in-app purchases. Review the game details and systems on Steam so you know what to expect.',
@@ -328,43 +328,63 @@
       const trailerError = document.getElementById('trailer-error');
       const trailerAutoplayStatus = document.getElementById('trailer-autoplay-status');
       const trailerStream = 'https://video.akamai.steamstatic.com/store_trailers/4212480/39565784/97b667e6e8026376064390ed81cf54163913fbd8/1787307582/hls_264_master.m3u8?t=1787308459';
-      trailer.autoplay = true;
-      trailer.muted = false;
-      trailer.volume = 1;
+      let streamRequested = false;
       trailer.addEventListener('playing', () => {
-        trailerAutoplayStatus.textContent = lang === 'en' ? 'Playing with sound.' : 'Sedang diputar dengan suara.';
+        trailerAutoplayStatus.textContent = trailer.muted
+          ? (lang === 'en'
+            ? 'Playing muted because your browser blocked autoplay with sound. Press the speaker icon to turn sound on.'
+            : 'Video diputar tanpa suara karena browser memblokir autoplay bersuara. Tekan ikon speaker untuk menyalakan suara.')
+          : (lang === 'en' ? 'Playing with sound.' : 'Sedang diputar dengan suara.');
       });
       const attemptSoundAutoplay = () => {
         trailer.muted = false;
         trailer.volume = 1;
-        trailer.play().catch(() => {
-          trailerAutoplayStatus.textContent = lang === 'en'
-            ? 'Autoplay was blocked by your browser. Press play to start with sound.'
-            : 'Putar otomatis diblokir browser. Tekan putar untuk memulai dengan suara.';
-        });
-      };
-      if (window.Hls && Hls.isSupported()) {
-        const hls = new Hls();
-        let recoveryAttempts = 0;
-        hls.on(Hls.Events.ERROR, (_, data) => {
-          if (!data.fatal) return;
-          if (data.type === Hls.ErrorTypes.NETWORK_ERROR && recoveryAttempts++ < 2) {
-            hls.startLoad();
-          } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR && recoveryAttempts++ < 2) {
-            hls.recoverMediaError();
-          } else {
-            trailerError.hidden = false;
+        trailer.play().catch(async () => {
+          trailer.muted = true;
+          try {
+            await trailer.play();
+          } catch {
+            trailerAutoplayStatus.textContent = lang === 'en' ? 'Press play to start the video.' : 'Tekan putar untuk memulai video.';
           }
         });
-        hls.on(Hls.Events.MANIFEST_PARSED, attemptSoundAutoplay);
-        hls.loadSource(trailerStream);
-        hls.attachMedia(trailer);
-      } else if (trailer.canPlayType('application/vnd.apple.mpegurl')) {
-        trailer.src = trailerStream;
-        trailer.addEventListener('canplay', attemptSoundAutoplay, { once: true });
-        trailer.addEventListener('error', () => { trailerError.hidden = false; });
+      };
+      const startStream = () => {
+        if (streamRequested) return;
+        streamRequested = true;
+        if (window.Hls && Hls.isSupported()) {
+          const hls = new Hls();
+          let recoveryAttempts = 0;
+          hls.on(Hls.Events.ERROR, (_, data) => {
+            if (!data.fatal) return;
+            if (data.type === Hls.ErrorTypes.NETWORK_ERROR && recoveryAttempts++ < 2) {
+              hls.startLoad();
+            } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR && recoveryAttempts++ < 2) {
+              hls.recoverMediaError();
+            } else {
+              trailerError.hidden = false;
+            }
+          });
+          hls.on(Hls.Events.MANIFEST_PARSED, attemptSoundAutoplay);
+          hls.loadSource(trailerStream);
+          hls.attachMedia(trailer);
+        } else if (trailer.canPlayType('application/vnd.apple.mpegurl')) {
+          trailer.src = trailerStream;
+          trailer.addEventListener('canplay', attemptSoundAutoplay, { once: true });
+          trailer.addEventListener('error', () => { trailerError.hidden = false; });
+        } else {
+          trailerError.hidden = false;
+        }
+      };
+      if ('IntersectionObserver' in window) {
+        const trailerObserver = new IntersectionObserver((entries) => {
+          if (entries.some(entry => entry.isIntersecting)) {
+            trailerObserver.disconnect();
+            startStream();
+          }
+        }, { threshold: 0.25 });
+        trailerObserver.observe(trailer);
       } else {
-        trailerError.hidden = false;
+        startStream();
       }
     })();
   </script>
