@@ -17,7 +17,7 @@
   <link rel="alternate" hreflang="x-default" href="https://trederfati-web.github.io/ragnarok-Go2offer.temara01/">
   <title>Ragnarok: The New World — Jelajahi Midgard</title>
   <link rel="preconnect" href="https://shared.fastly.steamstatic.com" crossorigin>
-  <link rel="preconnect" href="https://video.fastly.steamstatic.com" crossorigin>
+  <link rel="preconnect" href="https://video.akamai.steamstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -135,12 +135,10 @@
         </div>
         <figure style="margin:0">
           <div class="media-frame">
-            <video controls muted playsinline preload="none" poster="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/257403911/3c8d5a8772326734e8b0051b19927fc831c411aa/movie_full.jpg" aria-label="Trailer resmi Ragnarok: The New World">
-              <source src="https://video.fastly.steamstatic.com/steam/apps/4212480/39565784/97b667e6e8026376064390ed81cf54163913fbd8/1787307582/microtrailer.mp4" type="video/mp4">
-              Browser ini tidak mendukung pemutaran video. <a href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/">Lihat trailer di Steam.</a>
-            </video>
+            <video id="official-trailer" controls playsinline preload="none" poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/257403911/3c8d5a8772326734e8b0051b19927fc831c411aa/movie_600x337.jpg?t=1787308459" aria-label="Trailer resmi Ragnarok: The New World"></video>
           </div>
-          <figcaption class="media-caption"><b>Cuplikan resmi dari Steam</b><span>Putar dengan suara mati · Aktifkan suara kapan saja</span></figcaption>
+          <figcaption class="media-caption"><b>Cuplikan resmi dari Steam</b><span>Video lengkap dengan suara. Tekan putar untuk menonton.</span></figcaption>
+          <p class="trailer-error" id="trailer-error" role="status" hidden><span>Video tidak dapat dimuat.</span> <a class="steam-cta" data-cta-slot="trailer" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/">Tonton trailer di Steam</a></p>
         </figure>
       </div>
     </section>
@@ -214,6 +212,7 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.7.4/dist/hls.min.js"></script>
   <script>
     (() => {
       const params = new URLSearchParams(window.location.search);
@@ -241,6 +240,7 @@
         'Hadapi MVP':'Take on MVPs','Tantang monster MVP dan buka kesempatan untuk menjadikannya mount.':'Challenge MVP monsters for a chance to make one your mount.',
         'Jelajahi bersama':'Explore together','Bangun kelompok, susun peran, dan hadapi tantangan sebagai tim.':'Build a party, choose your roles, and take on challenges as a team.',
         'Jual dan bertukar':'Trade and exchange','Gunakan fitur perdagangan untuk menawarkan barang dan mencari perlengkapan.':'Use the trading features to offer items and find gear.',
+        'Video lengkap dengan suara. Tekan putar untuk menonton.':'Full trailer with sound. Press play to watch.','Video tidak dapat dimuat.':'The video could not be loaded.','Tonton trailer di Steam':'Watch the trailer on Steam',
         'Cuplikan resmi dari Steam':'Official Steam trailer','Putar dengan suara mati · Aktifkan suara kapan saja':'Starts muted · Turn sound on whenever you like',
         'Ketahui sebelum memasang':'Know before you install','Persiapkan PC-mu.':'Get your PC ready.','Unduhan dan permainan dilakukan melalui Steam di PC Windows. Pastikan perangkat dan koneksimu siap sebelum memulai.':'Download and play through Steam on a Windows PC. Check that your device and connection are ready before you begin.',
         'Free-to-Play dengan pembelian dalam game.':'Free-to-Play with in-game purchases.','Halaman Steam mencantumkan pembelian dalam aplikasi. Periksa detail dan sistem permainan di Steam agar kamu tahu apa yang akan dihadapi.':'Steam lists in-app purchases. Review the game details and systems on Steam so you know what to expect.',
@@ -323,6 +323,31 @@
           }
         });
       });
+
+      const trailer = document.getElementById('official-trailer');
+      const trailerError = document.getElementById('trailer-error');
+      const trailerStream = 'https://video.akamai.steamstatic.com/store_trailers/4212480/39565784/97b667e6e8026376064390ed81cf54163913fbd8/1787307582/hls_264_master.m3u8?t=1787308459';
+      if (window.Hls && Hls.isSupported()) {
+        const hls = new Hls();
+        let recoveryAttempts = 0;
+        hls.on(Hls.Events.ERROR, (_, data) => {
+          if (!data.fatal) return;
+          if (data.type === Hls.ErrorTypes.NETWORK_ERROR && recoveryAttempts++ < 2) {
+            hls.startLoad();
+          } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR && recoveryAttempts++ < 2) {
+            hls.recoverMediaError();
+          } else {
+            trailerError.hidden = false;
+          }
+        });
+        hls.loadSource(trailerStream);
+        hls.attachMedia(trailer);
+      } else if (trailer.canPlayType('application/vnd.apple.mpegurl')) {
+        trailer.src = trailerStream;
+        trailer.addEventListener('error', () => { trailerError.hidden = false; });
+      } else {
+        trailerError.hidden = false;
+      }
     })();
   </script>
 </body>
