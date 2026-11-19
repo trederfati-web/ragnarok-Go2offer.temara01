@@ -316,7 +316,7 @@
         'Buka halaman Steam':'Open the Steam page','Periksa detail game dan kebutuhan PC.':'Review the game details and PC requirements.','Instal game':'Install the game','Unduh melalui Steam dan siapkan ruang kosong 30 GB.':'Download through Steam and make sure 30 GB is available.','Luncurkan game':'Launch the game','Buka game dari Steam setelah instalasi selesai.':'Open the game from Steam after installation.','Masuk ke akun Gravity':'Sign in to Gravity','Buat atau hubungkan akun melalui launcher.':'Create or connect your account through the launcher.','Login untuk pertama kali':'Log in for the first time','Masuk ke game untuk memulai petualanganmu.':'Enter the game to begin your adventure.',
         'Klik tombol Steam hanya membuka halaman game. Instalasi, akun Gravity, dan login pertama adalah langkah terpisah.':'The Steam button only opens the game page. Installation, a Gravity account, and your first login are separate steps.',
         'Yang perlu diketahui':'Good to know','Sebelum berangkat.':'Before you go.','Info singkat agar kamu tiba di halaman game yang benar dan tahu langkah berikutnya.':'A few details to help you reach the right game page and know what comes next.',
-        'Apakah ini Ragnarok Online yang lama?':'Is this the original Ragnarok Online?','Bukan. Ini adalah ':'No. This is ',' judul MMORPG baru yang berbeda dari Ragnarok Online, Ragnarok Origin, dan Ragnarok M: Eternal Love.':' a new MMORPG title, distinct from Ragnarok Online, Ragnarok Origin, and Ragnarok M: Eternal Love.',
+        'Apakah ini Ragnarok Online yang lama?':'Is this the original Ragnarok Online?','Bukan. Ini adalah':'No. This is',', judul MMORPG baru yang berbeda dari Ragnarok Online, Ragnarok Origin, dan Ragnarok M: Eternal Love.':', a new MMORPG title, distinct from Ragnarok Online, Ragnarok Origin, and Ragnarok M: Eternal Love.',
         'Apakah game ini gratis?':'Is the game free?','Steam mencantumkannya sebagai Free-to-Play dan juga menyebut adanya pembelian dalam aplikasi. Kami tidak menjanjikan bahwa semua fitur atau item tersedia tanpa biaya.':'Steam lists the game as Free-to-Play and also notes in-app purchases. We do not promise that every feature or item is available at no cost.',
         'Apakah saya perlu membuat akun Gravity?':'Do I need to create a Gravity account?','Ya. Halaman Steam menyatakan bahwa akun Gravity perlu dibuat melalui launcher game. Buat atau hubungkan akun itu setelah memasang dan meluncurkan game.':'Yes. Steam says a Gravity account is required through the game launcher. Create or connect the account after installing and launching the game.',
         'Apakah halaman ini untuk ponsel?':'Is this page for mobile?','Halaman ini mengarahkan pemain PC Windows ke Steam. Periksa halaman Steam untuk persyaratan terbaru dan opsi platform lainnya.':'This page directs Windows PC players to Steam. Check Steam for current requirements and other platform options.',
@@ -348,6 +348,12 @@
         }
       }
 
+      const firstFaqAnswerParts = document.querySelector('.faq-item p')?.childNodes;
+      if (lang === 'en' && firstFaqAnswerParts?.length >= 3) {
+        firstFaqAnswerParts[0].textContent = 'No. This is ';
+        firstFaqAnswerParts[2].textContent = ', a new MMORPG title, distinct from Ragnarok Online, Ragnarok Origin, and Ragnarok M: Eternal Love.';
+      }
+
       const angle = params.get('angle') === 'nostalgia' ? 'nostalgia' : 'explore';
       const eyebrow = document.getElementById('hero-eyebrow');
       const title = document.getElementById('hero-title');
@@ -364,7 +370,10 @@
         '.brand':['aria-label',lang === 'en' ? 'Ragnarok: The New World home' : 'Ragnarok: The New World beranda'],
         '.media-frame video':['aria-label',lang === 'en' ? 'Official Ragnarok: The New World trailer' : 'Trailer resmi Ragnarok: The New World'],
         '.social-mvp img':['alt',lang === 'en' ? 'Ragnarok: The New World party fighting an MVP boss' : 'Party Ragnarok: The New World sedang bertarung melawan boss MVP'],
-        '.forms-grid':['aria-label',lang === 'en' ? 'Three Druid forms' : 'Tiga wujud Druid']
+        '.forms-grid':['aria-label',lang === 'en' ? 'Three Druid forms' : 'Tiga wujud Druid'],
+        '.feature-card:nth-child(1) .feature-image':['alt',lang === 'en' ? 'Ragnarok: The New World adventurers exploring a fantasy landscape' : 'Petualang Ragnarok: The New World menjelajahi medan fantasi'],
+        '.feature-card:nth-child(2) .feature-image':['alt',lang === 'en' ? 'Characters and looks in Ragnarok: The New World' : 'Beragam karakter dan tampilan di Ragnarok: The New World'],
+        '.feature-card:nth-child(3) .feature-image':['alt',lang === 'en' ? 'Players teaming up to face a monster in Ragnarok: The New World' : 'Sekelompok pemain menghadapi monster bersama di Ragnarok: The New World']
       };
       Object.entries(attributes).forEach(([selector,[name,value]]) => document.querySelector(selector)?.setAttribute(name,value));
       const paramsObject = Object.fromEntries(['utm_source','utm_medium','utm_campaign','utm_content'].map(key => [key, params.get(key) || undefined]));
