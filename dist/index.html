@@ -281,8 +281,8 @@
     (() => {
       const params = new URLSearchParams(window.location.search);
       const browserLanguage = (navigator.languages || [navigator.language || 'en']).map(value => value.toLowerCase());
-      const preferredLanguage = browserLanguage[0] || 'en';
-      const initialLanguage = preferredLanguage === 'id' || preferredLanguage.startsWith('id-') ? 'id' : 'en';
+      const hasIndonesianPreference = browserLanguage.some(value => value === 'id' || value.startsWith('id-'));
+      const initialLanguage = hasIndonesianPreference ? 'id' : 'en';
       const en = {
         'Sorotan game':'Game highlights','Kenali Midgard lebih dekat.':'A closer look at Midgard.','Pilih kelas, sesuaikan penampilan, dan berpetualang dengan pemain lain.':'Choose a class, customize your look, and adventure with other players.','kelas tersedia':'classes available','wujud Druid':'Druid forms','tampilan karakter':'character looks','multiplayer online':'online multiplayer',
         'Beralih di antara tiga wujud saat berpetualang.':'Switch between three forms as you adventure.','Bersama lebih kuat':'Stronger together','Bergabung. Berburu MVP.':'Team Up. Hunt MVPs.','Bentuk kelompok dan tantang monster MVP bersama pemain lain. Kalahkan mereka dan dapatkan kesempatan untuk menjadikannya mount.':'Team up with other players to challenge MVP monsters. Defeat them for a chance to tame one as a mount.','Perburuan MVP bersama party':'Hunt MVPs with your party',
