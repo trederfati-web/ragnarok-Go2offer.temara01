@@ -2,7 +2,7 @@
 
 The landing page keeps analytics off by default. After the client approves the data flow and consent requirements, set `window.RTNW_ANALYTICS_ENABLED = true` before the inline page script runs and connect `window.dataLayer` to the approved tag manager.
 
-Target GEO priority is Indonesia, Taiwan, and the Philippines first, followed by the other ASEAN markets. The page defaults to English and switches to Indonesian when any browser language preference is Indonesian (`id` or `id-*`). Taiwan (`zh-TW`), the Philippines (`fil` / `fil-PH`), and all other unsupported browser languages remain in English. FAQ copy and feature-image alt text are localized for English browsers. There is no manual language switch. The `angle=explore` and `angle=nostalgia` message tests remain available.
+Target GEO priority is Indonesia, Taiwan, and the Philippines first, followed by the other ASEAN markets. Language is selected from the browser's first preferred language, not inferred from GEO: English is the default; Indonesian is shown for `id` / `id-*`; Traditional Chinese is shown for `zh-TW` and `zh-Hant` locales. Filipino and other unsupported browser languages use English. FAQ copy, video status text, metadata, and feature-image alt text are localized for the supported languages. There is no manual language switch. The `angle=explore` and `angle=nostalgia` message tests remain available.
 
 Events prepared by the page:
 

@@ -1,19 +1,19 @@
 <!doctype html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#11101c">
-  <meta name="description" content="Jelajahi Midgard dalam Ragnarok: The New World, MMORPG open-world resmi dari Gravity. Pilih kelasmu dan mulai petualangan di Steam.">
+  <meta name="description" content="Explore Midgard in Ragnarok: The New World, an open-world MMORPG from Gravity. Choose your class and begin your adventure on Steam.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Ragnarok: The New World — Midgard menanti">
-  <meta property="og:description" content="MMORPG open-world di Midgard. Pilih kelasmu, jelajahi dunia bersama pemain lain, dan mulai di Steam.">
+  <meta property="og:title" content="Ragnarok: The New World — Midgard awaits">
+  <meta property="og:description" content="Explore Midgard in an open-world MMORPG. Choose your class, adventure with other players, and start on Steam.">
   <meta property="og:image" content="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4212480/c004334b9511cf37539bfb8b8aeae2d6d740a534/library_hero.jpg">
   <meta property="og:url" content="https://trederfati-web.github.io/ragnarok-Go2offer.temara01/">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://trederfati-web.github.io/ragnarok-Go2offer.temara01/">
   <link rel="alternate" hreflang="x-default" href="https://trederfati-web.github.io/ragnarok-Go2offer.temara01/">
-  <title>Ragnarok: The New World — Jelajahi Midgard</title>
+  <title>Ragnarok: The New World — Explore Midgard</title>
   <link rel="preconnect" href="https://shared.fastly.steamstatic.com" crossorigin>
   <link rel="preconnect" href="https://video.akamai.steamstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -280,9 +280,10 @@
   <script>
     (() => {
       const params = new URLSearchParams(window.location.search);
-      const browserLanguage = (navigator.languages || [navigator.language || 'en']).map(value => value.toLowerCase());
-      const hasIndonesianPreference = browserLanguage.some(value => value === 'id' || value.startsWith('id-'));
-      const initialLanguage = hasIndonesianPreference ? 'id' : 'en';
+      const browserLanguage = (navigator.languages?.[0] || navigator.language || 'en').toLowerCase();
+      const initialLanguage = browserLanguage === 'id' || browserLanguage.startsWith('id-')
+        ? 'id'
+        : (browserLanguage === 'zh-tw' || browserLanguage.startsWith('zh-tw-') || browserLanguage === 'zh-hant' || browserLanguage.startsWith('zh-hant-') ? 'zh-TW' : 'en');
       const en = {
         'Sorotan game':'Game highlights','Kenali Midgard lebih dekat.':'A closer look at Midgard.','Pilih kelas, sesuaikan penampilan, dan berpetualang dengan pemain lain.':'Choose a class, customize your look, and adventure with other players.','kelas tersedia':'classes available','wujud Druid':'Druid forms','tampilan karakter':'character looks','multiplayer online':'online multiplayer',
         'Beralih di antara tiga wujud saat berpetualang.':'Switch between three forms as you adventure.','Bersama lebih kuat':'Stronger together','Bergabung. Berburu MVP.':'Team Up. Hunt MVPs.','Bentuk kelompok dan tantang monster MVP bersama pemain lain. Kalahkan mereka dan dapatkan kesempatan untuk menjadikannya mount.':'Team up with other players to challenge MVP monsters. Defeat them for a chance to tame one as a mount.','Perburuan MVP bersama party':'Hunt MVPs with your party',
@@ -326,13 +327,28 @@
         'Putar dengan suara mati':'Starts muted'
       };
       const lang = initialLanguage;
+      const zhTW = {
+        'Sorotan game':'遊戲特色','Kenali Midgard lebih dekat.':'深入認識米德加爾特。','Pilih kelas, sesuaikan penampilan, dan berpetualang dengan pemain lain.':'選擇職業、打造角色外觀，並與其他玩家一同冒險。','kelas tersedia':'個可選職業','wujud Druid':'種德魯伊形態','tampilan karakter':'種角色外觀','multiplayer online':'線上多人遊玩',
+        'Beralih di antara tiga wujud saat berpetualang.':'冒險途中可切換三種形態。','Bersama lebih kuat':'攜手更強大','Bergabung. Berburu MVP.':'組隊出發，挑戰 MVP。','Bentuk kelompok dan tantang monster MVP bersama pemain lain. Kalahkan mereka dan dapatkan kesempatan untuk menjadikannya mount.':'與其他玩家組隊挑戰 MVP 怪物。擊敗牠們，就有機會將其馴服為坐騎。','Perburuan MVP bersama party':'與隊伍一同狩獵 MVP',
+        'Ke Midgard dalam 3 langkah.':'三步踏入米德加爾特。','Steam membuka halaman game. First Login baru terjadi setelah instalasi, launcher, dan kamu masuk ke dalam game.':'Steam 會開啟遊戲頁面。安裝遊戲並透過啟動器登入、進入遊戲後，才算首次登入。','Buka Steam':'開啟 Steam','Buka halaman game dan periksa detailnya.':'前往遊戲頁面並查看詳細資訊。','Instal & luncurkan':'安裝並啟動','Unduh game melalui Steam, lalu buka setelah instalasi.':'透過 Steam 下載遊戲，安裝完成後啟動。','Masuk & mainkan':'登入並開始遊玩','Buat atau hubungkan akun Gravity di launcher, lalu masuk ke game untuk First Login.':'在啟動器建立或連結 Gravity 帳號，再進入遊戲完成首次登入。','Masuk dengan akun Gravity-mu dan jelajahi Midgard.':'使用 Gravity 帳號登入，踏入米德加爾特。','Mulai di Steam':'前往 Steam 開始','Langsung ke konten':'跳至主要內容','Navigasi utama':'主導覽','Pilih bahasa / Choose language':'選擇語言','Ragnarok: The New World beranda':'Ragnarok: The New World 首頁','Dunia Midgard':'米德加爾特','Petualangan':'冒險','Persiapan PC':'PC 準備','Mainkan di Steam':'在 Steam 遊玩',
+        'Dunia baru. Kelas pilihanmu.':'全新世界，選擇你的職業。','Midgard memanggil kembali.':'米德加爾特再次呼喚。','Jelajahi Midgard dalam MMORPG open-world baru. Pilih kelasmu, temukan petualangan, dan bergabung dengan pemain lain.':'在全新開放世界 MMORPG 中探索米德加爾特。選擇職業、展開冒險，並與其他玩家同行。','MMORPG open-world':'開放世界 MMORPG','Druid: 3 wujud':'德魯伊：三種形態','JELAJAHI':'探索','Waralaba Ragnarok telah hadir sejak 2002. Ini adalah':'Ragnarok 系列自 2002 年以來持續推出作品。這是','Sebuah dunia untuk dijelajahi':'等待探索的世界','Kenali Midgard, dengan caramu sendiri.':'用自己的方式認識米德加爾特。','Temukan kembali nuansa Ragnarok dalam petualangan open-world yang dirancang untuk dijelajahi, dimainkan, dan dibagikan bersama.':'在這場開放世界冒險中重溫 Ragnarok 的氛圍，探索世界、投入遊玩，並與他人分享旅程。',
+        'Jelajahi dunia terbuka':'探索開放世界','Susuri Midgard, temui tempat-tempat baru, dan biarkan rasa ingin tahu menentukan langkah berikutnya.':'漫遊米德加爾特、發現新地點，跟隨好奇心踏出下一步。','Pilih kelasmu':'選擇你的職業','Temukan gaya bertarung yang cocok untukmu. Druid hadir sebagai kelas baru dengan tiga wujud.':'找到適合自己的戰鬥風格。全新職業德魯伊可切換三種形態。','Berpetualang bersama':'一同冒險','Temui pemain lain, bentuk kelompok, dan hadapi tantangan dunia bersama komunitasmu.':'結識其他玩家、組成隊伍，與夥伴一同迎接世界的挑戰。','Pilih caramu bermain':'選擇你的遊玩方式','Satu dunia.':'同一個世界。','Banyak jalan.':'多種冒險路線。','Mulailah dengan kelas yang terasa pas. Seiring petualanganmu berkembang, kamu bisa mencoba peran dan gaya bermain yang berbeda.':'從適合自己的職業開始。隨著冒險展開，還能嘗試不同定位與玩法。','Termasuk Druid baru: beralih di antara wujud Werewolf, Wereraptor, dan Human Arcanist.':'全新德魯伊可在 Werewolf、Wereraptor 與 Human Arcanist 形態之間切換。','Kelas baru':'全新職業','Kelas':'職業','Delapan pilihan':'八種選擇','Termasuk Thief, Swordsman, dan Mage.':'包括 Thief、Swordsman 和 Mage。','Ekspresikan dirimu':'展現你的風格','100+ tampilan':'超過 100 種外觀','Sesuaikan gaya karakter dengan koleksi tampilan.':'透過多樣外觀打造專屬角色風格。',
+        'Temukan momen bersama':'與夥伴共享冒險時刻','Lebih seru saat dijalani bersama.':'與夥伴同行更精彩。','Midgard bukan hanya tempat untuk dijelajahi. Ada pertarungan, perjalanan, dan pilihan yang bisa kamu bagikan dengan pemain lain.':'米德加爾特不只有探索。你也能與其他玩家並肩戰鬥、踏上旅程，並分享每個選擇。','Hadapi MVP':'挑戰 MVP','Tantang monster MVP dan buka kesempatan untuk menjadikannya mount.':'挑戰 MVP 怪物，並有機會將其馴服為坐騎。','Jelajahi bersama':'結伴探索','Bangun kelompok, susun peran, dan hadapi tantangan sebagai tim.':'組成隊伍、安排定位，以團隊迎接挑戰。','Jual dan bertukar':'交易與交換','Gunakan fitur perdagangan untuk menawarkan barang dan mencari perlengkapan.':'使用交易功能上架物品並尋找裝備。',
+        'Video mencoba diputar otomatis dengan suara. Jika diblokir, tekan putar untuk menonton dengan suara.':'影片正在嘗試自動播放並開啟聲音。若瀏覽器封鎖，請按播放鍵。','Autoplay diblokir. Tekan putar untuk memulai video.':'自動播放遭到封鎖。請按播放鍵開始觀看。','Sedang diputar dengan suara.':'目前正在播放聲音。','Video tidak dapat dimuat.':'無法載入影片。','Tonton trailer di Steam':'在 Steam 觀看預告片','Cuplikan resmi dari Steam':'Steam 官方預告片','Putar dengan suara mati':'預設靜音播放','Ketahui sebelum memasang':'安裝前請先了解','Persiapkan PC-mu.':'準備好你的 PC。','Unduhan dan permainan dilakukan melalui Steam di PC Windows. Pastikan perangkat dan koneksimu siap sebelum memulai.':'請透過 Windows PC 上的 Steam 下載並遊玩。開始前請確認裝置與網路已準備就緒。','Free-to-Play dengan pembelian dalam game.':'免費遊玩，含遊戲內購買。','Halaman Steam mencantumkan pembelian dalam aplikasi. Periksa detail dan sistem permainan di Steam agar kamu tahu apa yang akan dihadapi.':'Steam 頁面列有應用程式內購買項目。請查看 Steam 上的遊戲詳情與系統說明。',
+        'Memori minimum':'最低記憶體','12 GB RAM':'12 GB RAM','Penyimpanan':'儲存空間','30 GB kosong':'30 GB 可用空間','Koneksi':'網路連線','Internet broadband':'寬頻網路','Platform halaman ini':'本頁面適用平台','PC Windows':'Windows PC','Akun pihak ketiga':'第三方帳號','Akun Gravity dibuat melalui launcher game':'透過遊戲啟動器建立 Gravity 帳號','Bahasa yang tercantum di Steam':'Steam 列出的語言','Bahasa Indonesia':'印尼文','Inggris':'英文','Thai':'泰文','Mandarin Sederhana':'簡體中文',
+        'Dari Steam ke login pertamamu':'從 Steam 到首次登入','Lima langkah menuju Midgard.':'五步踏入米德加爾特。','Instalasi hanyalah awal. Login pertama terjadi setelah kamu membuka game dan masuk melalui launcher.':'安裝只是開始。啟動遊戲並透過啟動器登入後，才算首次登入。','Buka halaman Steam':'開啟 Steam 頁面','Periksa detail game dan kebutuhan PC.':'查看遊戲詳情與 PC 系統需求。','Instal game':'安裝遊戲','Unduh melalui Steam dan siapkan ruang kosong 30 GB.':'透過 Steam 下載，並預留 30 GB 空間。','Luncurkan game':'啟動遊戲','Buka game dari Steam setelah instalasi selesai.':'安裝完成後，從 Steam 開啟遊戲。','Masuk ke akun Gravity':'登入 Gravity 帳號','Buat atau hubungkan akun melalui launcher.':'透過啟動器建立或連結帳號。','Login untuk pertama kali':'首次登入','Masuk ke game untuk memulai petualanganmu.':'進入遊戲，開始你的冒險。','Klik tombol Steam hanya membuka halaman game. Instalasi, akun Gravity, dan login pertama adalah langkah terpisah.':'按下 Steam 按鈕只會開啟遊戲頁面。安裝、Gravity 帳號與首次登入是不同步驟。',
+        'Yang perlu diketahui':'常見問題','Sebelum berangkat.':'出發前了解一下。','Info singkat agar kamu tiba di halaman game yang benar dan tahu langkah berikutnya.':'快速了解正確的遊戲頁面與接下來的步驟。','Apakah ini Ragnarok Online yang lama?':'這是舊版 Ragnarok Online 嗎？','Bukan. Ini adalah':'不是。這是','Apakah game ini gratis?':'這款遊戲免費嗎？','Steam mencantumkannya sebagai Free-to-Play dan juga menyebut adanya pembelian dalam aplikasi. Kami tidak menjanjikan bahwa semua fitur atau item tersedia tanpa biaya.':'Steam 標示本作為免費遊玩，同時列出應用程式內購買項目。並非所有功能或物品都保證免費。','Apakah saya perlu membuat akun Gravity?':'我需要建立 Gravity 帳號嗎？','Ya. Halaman Steam menyatakan bahwa akun Gravity perlu dibuat melalui launcher game. Buat atau hubungkan akun itu setelah memasang dan meluncurkan game.':'需要。Steam 頁面說明需透過遊戲啟動器建立 Gravity 帳號。安裝並啟動遊戲後建立或連結帳號。','Apakah halaman ini untuk ponsel?':'這個頁面是給手機玩家的嗎？','Halaman ini mengarahkan pemain PC Windows ke Steam. Periksa halaman Steam untuk persyaratan terbaru dan opsi platform lainnya.':'本頁面引導 Windows PC 玩家前往 Steam。最新需求與其他平台資訊請查看 Steam 頁面。','Bagaimana saya tahu game sudah dimulai?':'怎樣才算已開始遊戲？','Klik Steam bukan login pertama. Setelah instalasi, luncurkan game, masuk ke akun Gravity melalui launcher, lalu masuk ke dalam game.':'點擊 Steam 不代表首次登入。安裝後啟動遊戲，透過啟動器登入 Gravity 帳號，再進入遊戲。','Petualanganmu dimulai dari sini':'你的冒險從這裡開始','Midgard menunggumu.':'米德加爾特正等著你。','Siapkan PC, cek detail di Steam, lalu pilih kelasmu untuk menjelajahi dunia bersama pemain lain.':'準備好 PC、查看 Steam 詳情，接著選擇職業，與其他玩家一同探索世界。','Steam resmi':'Steam 官方頁面','Komunitas Steam':'Steam 社群','Ragnarok: The New World adalah game dari Gravity Game Vision Limited. Halaman ini adalah panduan menuju Steam, bukan situs resmi penerbit.':'Ragnarok: The New World 由 Gravity Game Vision Limited 發行。本頁面提供 Steam 導覽，並非發行商官方網站。'
+      };
       document.documentElement.lang = lang;
+      const selectedCopy = lang === 'en' ? en : lang === 'zh-TW' ? zhTW : null;
       const description = lang === 'en'
         ? 'Explore Midgard in Ragnarok: The New World, an open-world MMORPG from Gravity. Choose your class and begin your adventure on Steam.'
-        : 'Jelajahi Midgard dalam Ragnarok: The New World, MMORPG open-world resmi dari Gravity. Pilih kelasmu dan mulai petualanganmu di Steam.';
-      document.title = lang === 'en' ? 'Ragnarok: The New World — Explore Midgard' : 'Ragnarok: The New World — Jelajahi Midgard';
+        : lang === 'zh-TW'
+          ? '在 Ragnarok: The New World 這款 Gravity 開放世界 MMORPG 中探索米德加爾特，選擇職業並在 Steam 展開冒險。'
+          : 'Jelajahi Midgard dalam Ragnarok: The New World, MMORPG open-world resmi dari Gravity. Pilih kelasmu dan mulai petualanganmu di Steam.';
+      document.title = lang === 'en' ? 'Ragnarok: The New World — Explore Midgard' : lang === 'zh-TW' ? 'Ragnarok: The New World — 探索米德加爾特' : 'Ragnarok: The New World — Jelajahi Midgard';
       document.querySelector('meta[name="description"]').content = description;
-      document.querySelector('meta[property="og:title"]').content = lang === 'en' ? 'Ragnarok: The New World — Midgard awaits' : 'Ragnarok: The New World — Midgard menanti';
+      document.querySelector('meta[property="og:title"]').content = lang === 'en' ? 'Ragnarok: The New World — Midgard awaits' : lang === 'zh-TW' ? 'Ragnarok: The New World — 米德加爾特等著你' : 'Ragnarok: The New World — Midgard menanti';
       document.querySelector('meta[property="og:description"]').content = description;
 
       const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -344,7 +360,14 @@
         if (lang === 'id') textNode.textContent = original;
         else {
           const trimmed = original.trim().replace(/\s+/g, ' ');
-          if (en[trimmed]) textNode.textContent = original.replace(trimmed, en[trimmed]);
+          if (selectedCopy?.[trimmed]) textNode.textContent = original.replace(trimmed, selectedCopy[trimmed]);
+          else if (selectedCopy) {
+            let translated = trimmed;
+            Object.entries(selectedCopy).sort((a, b) => b[0].length - a[0].length).forEach(([source, target]) => {
+              translated = translated.replaceAll(source, target);
+            });
+            if (translated !== trimmed) textNode.textContent = original.replace(trimmed, translated);
+          }
         }
       }
 
@@ -353,27 +376,32 @@
         firstFaqAnswerParts[0].textContent = 'No. This is ';
         firstFaqAnswerParts[2].textContent = ', a new MMORPG title, distinct from Ragnarok Online, Ragnarok Origin, and Ragnarok M: Eternal Love.';
       }
+      if (lang === 'zh-TW' && firstFaqAnswerParts?.length >= 3) {
+        firstFaqAnswerParts[0].textContent = '不是。這是 ';
+        firstFaqAnswerParts[2].textContent = '，一款與 Ragnarok Online、Ragnarok Origin 及 Ragnarok M: Eternal Love 不同的全新 MMORPG。';
+      }
 
       const angle = params.get('angle') === 'nostalgia' ? 'nostalgia' : 'explore';
       const eyebrow = document.getElementById('hero-eyebrow');
       const title = document.getElementById('hero-title');
       const heroCopy = {
         id: { explore:['Petualangan baru menantimu.','Jelajahi Midgard. <em>Kuasai satu dari 8 kelas.</em>'], nostalgia:['Midgard memanggil kembali.','Kisah baru <em>di dunia yang akrab.</em>'] },
-        en: { explore:['A new adventure awaits.','Explore Midgard. <em>Master 1 of 8 Classes.</em>'], nostalgia:['Midgard calls you back.','A new story <em>in a familiar world.</em>'] }
+        en: { explore:['A new adventure awaits.','Explore Midgard. <em>Master 1 of 8 Classes.</em>'], nostalgia:['Midgard calls you back.','A new story <em>in a familiar world.</em>'] },
+        'zh-TW': { explore:['全新冒險即將展開。','探索米德加爾特。<em>精通八大職業之一。</em>'], nostalgia:['米德加爾特再次呼喚。','熟悉的世界，<em>全新的故事。</em>'] }
       }[lang][angle];
       eyebrow.textContent = heroCopy[0];
       title.innerHTML = heroCopy[1];
 
       const attributes = {
-        '.skip-link':['aria-label',lang === 'en' ? 'Skip to content' : 'Langsung ke konten'],
-        '.nav':['aria-label',lang === 'en' ? 'Main navigation' : 'Navigasi utama'],
-        '.brand':['aria-label',lang === 'en' ? 'Ragnarok: The New World home' : 'Ragnarok: The New World beranda'],
-        '.media-frame video':['aria-label',lang === 'en' ? 'Official Ragnarok: The New World trailer' : 'Trailer resmi Ragnarok: The New World'],
-        '.social-mvp img':['alt',lang === 'en' ? 'Ragnarok: The New World party fighting an MVP boss' : 'Party Ragnarok: The New World sedang bertarung melawan boss MVP'],
-        '.forms-grid':['aria-label',lang === 'en' ? 'Three Druid forms' : 'Tiga wujud Druid'],
-        '.feature-card:nth-child(1) .feature-image':['alt',lang === 'en' ? 'Ragnarok: The New World adventurers exploring a fantasy landscape' : 'Petualang Ragnarok: The New World menjelajahi medan fantasi'],
-        '.feature-card:nth-child(2) .feature-image':['alt',lang === 'en' ? 'Characters and looks in Ragnarok: The New World' : 'Beragam karakter dan tampilan di Ragnarok: The New World'],
-        '.feature-card:nth-child(3) .feature-image':['alt',lang === 'en' ? 'Players teaming up to face a monster in Ragnarok: The New World' : 'Sekelompok pemain menghadapi monster bersama di Ragnarok: The New World']
+        '.skip-link':['aria-label',lang === 'en' ? 'Skip to content' : lang === 'zh-TW' ? '跳至主要內容' : 'Langsung ke konten'],
+        '.nav':['aria-label',lang === 'en' ? 'Main navigation' : lang === 'zh-TW' ? '主導覽' : 'Navigasi utama'],
+        '.brand':['aria-label',lang === 'en' ? 'Ragnarok: The New World home' : lang === 'zh-TW' ? 'Ragnarok: The New World 首頁' : 'Ragnarok: The New World beranda'],
+        '.media-frame video':['aria-label',lang === 'en' ? 'Official Ragnarok: The New World trailer' : lang === 'zh-TW' ? 'Ragnarok: The New World 官方預告片' : 'Trailer resmi Ragnarok: The New World'],
+        '.social-mvp img':['alt',lang === 'en' ? 'Ragnarok: The New World party fighting an MVP boss' : lang === 'zh-TW' ? 'Ragnarok: The New World 隊伍正在迎戰 MVP 首領' : 'Party Ragnarok: The New World sedang bertarung melawan boss MVP'],
+        '.forms-grid':['aria-label',lang === 'en' ? 'Three Druid forms' : lang === 'zh-TW' ? '德魯伊的三種形態' : 'Tiga wujud Druid'],
+        '.feature-card:nth-child(1) .feature-image':['alt',lang === 'en' ? 'Ragnarok: The New World adventurers exploring a fantasy landscape' : lang === 'zh-TW' ? 'Ragnarok: The New World 冒險者正在探索奇幻世界' : 'Petualang Ragnarok: The New World menjelajahi medan fantasi'],
+        '.feature-card:nth-child(2) .feature-image':['alt',lang === 'en' ? 'Characters and looks in Ragnarok: The New World' : lang === 'zh-TW' ? 'Ragnarok: The New World 的角色與外觀' : 'Beragam karakter dan tampilan di Ragnarok: The New World'],
+        '.feature-card:nth-child(3) .feature-image':['alt',lang === 'en' ? 'Players teaming up to face a monster in Ragnarok: The New World' : lang === 'zh-TW' ? '玩家組隊迎戰 Ragnarok: The New World 中的怪物' : 'Sekelompok pemain menghadapi monster bersama di Ragnarok: The New World']
       };
       Object.entries(attributes).forEach(([selector,[name,value]]) => document.querySelector(selector)?.setAttribute(name,value));
       const paramsObject = Object.fromEntries(['utm_source','utm_medium','utm_campaign','utm_content'].map(key => [key, params.get(key) || undefined]));
@@ -398,8 +426,8 @@
         trailerAutoplayStatus.textContent = trailer.muted
           ? (lang === 'en'
             ? 'The video is muted. Press the speaker icon to turn sound on.'
-            : 'Video dalam keadaan senyap. Tekan ikon speaker untuk menyalakan suara.')
-          : (lang === 'en' ? 'Playing with sound.' : 'Sedang diputar dengan suara.');
+            : lang === 'zh-TW' ? '影片目前為靜音。按下喇叭圖示即可開啟聲音。' : 'Video dalam keadaan senyap. Tekan ikon speaker untuk menyalakan suara.')
+          : (lang === 'en' ? 'Playing with sound.' : lang === 'zh-TW' ? '目前正在播放聲音。' : 'Sedang diputar dengan suara.');
       });
       const attemptSoundAutoplay = () => {
         trailer.muted = false;
@@ -407,7 +435,7 @@
         trailer.play().catch(() => {
           trailerAutoplayStatus.textContent = lang === 'en'
             ? 'Autoplay with sound was blocked. Press play to watch with sound.'
-            : 'Browser memblokir autoplay dengan suara. Tekan putar untuk menonton dengan suara.';
+            : lang === 'zh-TW' ? '瀏覽器封鎖了含聲音的自動播放。請按播放鍵並開啟聲音。' : 'Browser memblokir autoplay dengan suara. Tekan putar untuk menonton dengan suara.';
         });
       };
       const startStream = () => {
